@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express()
+const path = require('path');
 const port = 8000
 const mongoose = require('mongoose')
 const dbURI = "mongodb://127.0.0.1:27017/artists";
@@ -17,6 +18,11 @@ mongoose.connect(dbURI)
 app.use(express.json())
 
 app.use("/artist", artistRoutes)
+
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'index.html'));
+});
 
 app.listen(port, ()=>{
     console.log("express is running")
