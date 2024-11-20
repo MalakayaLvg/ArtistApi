@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const dbURI = "mongodb://127.0.0.1:27017/artists";
 
 const artistRoutes = require('./routes/artist');
+const releaseRoutes = require('./routes/release')
 
 mongoose.connect(dbURI)
     .then(()=>{
@@ -17,8 +18,8 @@ mongoose.connect(dbURI)
 
 app.use(express.json())
 
-app.use("/artist", artistRoutes)
-
+app.use("/artist", artistRoutes);
+app.use("/release", releaseRoutes);
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'index.html'));
