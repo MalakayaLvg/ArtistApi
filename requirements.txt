@@ -1,1 +1,1 @@
-npm install express nodemon mongoose bcrypt jsonwebtoken express-validator
+npm install express nodemon mongoose bcrypt jsonwebtoken express-validator body-parser
