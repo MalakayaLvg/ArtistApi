@@ -30,7 +30,7 @@ async function register (req, res) {
         await user.save();
         console.log(user)
 
-        res.status(201).json({ message: 'User registered successfully' });
+        res.status(200).json({ message: 'User registered successfully' });
     } catch (err) {
         res.status(500).json({ error: 'Internal server error' });
     }

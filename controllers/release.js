@@ -6,21 +6,42 @@ async function index(req,res){
     res.send(releases)
 }
 
-async function addRelease(req,res){
-    const { artistId } = req.params;
-    const { title, releaseDate } = req.body;
-    console.log(artistId)
-    const artist = await Artist.findById(artistId);
+async function show(req, res) {
+    const release = await Release.findById(req.params.id);
+    res.send(release);
+}
 
-    const release = new Release({
-        title,
-        releaseDate,
-        artist: artistId,
-    });
-    console.log(release)
-    const savedRelease = await release.save();
-    res.send(savedRelease,artist);
+async function addRelease(req, res) {
+    try {
+        const { artistId } = req.params;
+        const { title, releaseDate } = req.body;
 
+        console.log(artistId);
+        const artist = await Artist.findById(artistId);
+        if (!artist) {
+            return res.status(404).json({ error: "Artist not found" });
+        }
+
+        const release = new Release({
+            title,
+            releaseDate,
+            artist: artistId,
+        });
+
+        console.log(release);
+
+        const savedRelease = await release.save();
+
+        res.status(201).json({
+            message: "Release created successfully",
+            release: savedRelease,
+            artist,
+        });
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({ error: "An error occurred while creating the release" });
+    }
 }
 
 async function remove(req,res){
@@ -46,4 +67,4 @@ async function update(req,res){
 
 }
 
-module.exports = {index,addRelease,remove,update}
+module.exports = {index,addRelease,remove,update,show}
