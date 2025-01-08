@@ -1,12 +1,12 @@
 const express = require("express");
 const app = express()
 const path = require('path');
-const port = 8000
+const port = 3000
 const mongoose = require('mongoose')
 const dbURI = "mongodb://127.0.0.1:27017/artists";
 const cors = require('cors');
 
-const swaggereJsDoc = require('swagger-jsdoc');
+const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUI = require('swagger-ui-express');
 
 const swaggerOptions = {
@@ -45,7 +45,7 @@ const swaggerOptions = {
     apis: ['./routes/*.js'],
 }
 
-const swaggerDocs = swaggereJsDoc(swaggerOptions);
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
 
@@ -77,7 +77,7 @@ app.listen(port, ()=>{
 })
 
 // réseau local
-// app.listen(port,'0.0.0.0', ()=>{
-//     console.log(`express is running at http://0.0.0.0:${port}`)
-// })
+app.listen(port,'0.0.0.0', ()=>{
+    console.log(`express is running at http://0.0.0.0:${port}`)
+})
 
