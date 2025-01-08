@@ -4,7 +4,6 @@ const path = require('path');
 const port = 3000
 const mongoose = require('mongoose')
 const dbURI = "mongodb://127.0.0.1:27017/artists";
-const cors = require('cors');
 
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUI = require('swagger-ui-express');
@@ -60,7 +59,6 @@ mongoose.connect(dbURI)
     .catch((err)=>{
         console.error(err)
     })
-app.use(cors());
 app.use(express.json());
 
 app.use("/artist", artistRoutes);
@@ -77,7 +75,7 @@ app.listen(port, ()=>{
 })
 
 // réseau local
-app.listen(port,'0.0.0.0', ()=>{
-    console.log(`express is running at http://0.0.0.0:${port}`)
-})
+// app.listen(port,'0.0.0.0', ()=>{
+//     console.log(`express is running at http://0.0.0.0:${port}`)
+// })
 
